@@ -1,38 +1,59 @@
-# nextjs-blog
+# NextBlog
 
-## First-time setup (new machine)
+Projeto de aprendizado com **Next.js (App Router)**, combinando frontend
+e backend em uma aplicacao de blog moderna.
 
-1. Install dependencies:
+## Sobre
+
+Este projeto foi construido para praticar fluxo full-stack com foco em:
+autenticacao, rotas protegidas, CRUD de conteudo, busca e uso de cache.
+
+## Stack
+
+- Next.js 16 + React 19 + TypeScript
+- Convex (database, queries, mutations e storage)
+- Better Auth
+- Tailwind CSS + shadcn/ui
+- React Hook Form + Zod
+
+## Features
+
+- Login e cadastro com email/senha
+- Rotas restritas para usuarios autenticados
+- Criacao e listagem de posts com upload de imagem
+- Pagina de detalhe com comentarios
+- Busca de posts por texto (search)
+- Presenca em tempo real no post
+- Uso de cache para melhorar desempenho de leitura
+- Suporte a tema claro/escuro
+
+## Setup rapido
+
+1. Instale dependencias:
+
 ```bash
 npm install
 ```
 
-2. Create `.env.local` (or copy from `.env.example`) and fill:
+2. Configure o arquivo `.env.local` com as variaveis do Convex:
+
 ```env
 CONVEX_DEPLOYMENT=dev:your-deployment
 NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
 NEXT_PUBLIC_CONVEX_SITE_URL=https://your-deployment.convex.site
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-SITE_URL=http://localhost:3000
-BETTER_AUTH_SECRET=your-long-random-secret
 ```
 
-3. Generate a secret for Better Auth:
-```bash
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-```
+3. Sincronize o backend:
 
-4. Reconnect Convex and regenerate generated files:
 ```bash
 npx convex dev
 ```
 
-This will restore `convex/_generated/*` and sync environment values for the selected deployment.
-
-## Run locally
+4. Rode a aplicacao:
 
 ```bash
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Acesse `http://localhost:3000`.
