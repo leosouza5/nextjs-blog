@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         port: "",
       },
       {
+        hostname: "disciplined-elk-259.convex.cloud",
+        protocol: "https",
+        port: "",
+      },
+      {
         hostname: "blissful-hedgehog-27.convex.cloud",
         protocol: "https",
         port: "",
