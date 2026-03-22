@@ -4,10 +4,21 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { api } from "@/convex/_generated/api"
 import { fetchQuery } from "convex/nextjs"
+import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import { connection } from "next/server"
 import { Suspense } from "react"
 
+// export const dynamic = "force-static"
+// export const revalidate = 30
+
+export const metadata: Metadata = {
+  title: "Blog | Next.js",
+  description: "Read our latest articles and insights",
+  category: "Web development",
+  authors: [{ name: "Leonardo" }]
+}
 export default function BlogPage() {
 
   const data = LoadBlogList()
@@ -17,17 +28,17 @@ export default function BlogPage() {
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Our Blog</h1>
         <p className="pt-4 max-w-2xl mx-auto text-xl text-muted-foreground">Insigts, thoughs, and trends from our team.</p>
       </div>
-      <Suspense fallback={
+      {/* <Suspense fallback={
         <SkeletonLoadingUi />
-      }>
-        <LoadBlogList />
-      </Suspense>
+      }> */}
+      <LoadBlogList />
+      {/* </Suspense> */}
     </div>
   )
 }
 
 async function LoadBlogList() {
-  await new Promise((resolve) => setTimeout(resolve, 2000))
+  "use cache"
   const data = await fetchQuery(api.posts.getPostList)
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -35,9 +46,9 @@ async function LoadBlogList() {
         <Card className="pt-0" key={post._id}>
           <div className="relative h-48 w-full overflow-hidden">
             <Image
-              src={`https://images.unsplash.com/photo-1773332585760-8b5dc6079a74?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
+              src={post.imageUrl ?? `https://images.unsplash.com/photo-1773332585760-8b5dc6079a74?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
               alt="Random image"
-              className="rounded-t-lg"
+              className="rounded-t-lg object-cover"
               // width={500}
               // height={800}
               fill

@@ -33,11 +33,8 @@ export default function CreateRoute() {
   async function onSubmit(values: z.infer<typeof postSchema>) {
     startTransition(async () => {
       await createBlogAction(values)
-      // mutation({
-      //   body: values.content,
-      //   title: values.title,
-      // })
-      router.push("/")
+
+        , router.push("/")
       toast.success("Post created successfully")
     })
   }
@@ -76,6 +73,27 @@ export default function CreateRoute() {
                   <Field>
                     <FieldLabel>Content</FieldLabel>
                     <Textarea {...field} aria-invalid={fieldState.invalid} />
+                    {fieldState.error && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="image"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <FieldLabel>Content</FieldLabel>
+                    <Input
+                      type="file"
+                      aria-invalid={fieldState.invalid}
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0]
+                        field.onChange(file)
+                      }}
+                    />
                     {fieldState.error && (
                       <FieldError errors={[fieldState.error]} />
                     )}
