@@ -28,17 +28,17 @@ export default function BlogPage() {
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Our Blog</h1>
         <p className="pt-4 max-w-2xl mx-auto text-xl text-muted-foreground">Insigts, thoughs, and trends from our team.</p>
       </div>
-      {/* <Suspense fallback={
+      <Suspense fallback={
         <SkeletonLoadingUi />
-      }> */}
-      <LoadBlogList />
-      {/* </Suspense> */}
+      }>
+        <LoadBlogList />
+      </Suspense>
     </div>
   )
 }
 
 async function LoadBlogList() {
-  "use cache"
+  await connection()
   const data = await fetchQuery(api.posts.getPostList)
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
