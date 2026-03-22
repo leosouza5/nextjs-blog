@@ -36,7 +36,8 @@ export default function LoginPage() {
           onSuccess: () => {
 
             toast.success("Logged in successfully")
-            router.push("/")
+            router.replace("/")
+            router.refresh()
           },
           onError: (error) => {
             toast.error(error.error.message)
